@@ -1,0 +1,37 @@
+#! /usr/bin/env python
+
+def options(opt):
+	return
+
+def configure(conf):
+	conf.define('TOGL_DLL_EXPORT', True)
+
+def build(bld):
+	libs = ['tier0', 'tier1', 'tier2', 'interfaces', 'vstdlib', 'mathlib']
+
+	includes = []
+
+	source = [
+		'dx9asmtogl2.cpp',
+		'dxabstract.cpp',
+		'glentrypoints.cpp',	
+		'glmgr.cpp',			
+		'glmgrbasics.cpp',	
+		'cglmtex.cpp',		
+		'cglmfbo.cpp',		
+		'cglmprogram.cpp',	
+		'cglmbuffer.cpp',	
+		'cglmquery.cpp',
+		'../public/tier0/memoverride.cpp'
+	]
+
+	bld.shlib(
+		source   = source,
+		target   = 'togl',
+		features = 'cxx',
+		includes = includes,
+		use      = libs,
+		install_path = bld.env.BINPATH,
+		subsystem = bld.env.MSVC_SUBSYSTEM,
+		idx = bld.get_taskgen_count()
+	)
