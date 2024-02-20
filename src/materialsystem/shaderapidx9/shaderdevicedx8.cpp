@@ -5,6 +5,7 @@
 // $NoKeywords: $
 //
 //===========================================================================//
+
 #define DISABLE_PROTECTED_THINGS
 #include "locald3dtypes.h"
 
@@ -1661,10 +1662,8 @@ int CShaderDeviceMgrDx8::GetVidMemBytes( int nAdapter ) const
 {
 #if defined( _X360 )
 	return 256*1024*1024;
-#elif defined (DX_TO_GL_ABSTRACTION)
-	D3DADAPTER_IDENTIFIER9 devIndentifier;
-	D3D()->GetAdapterIdentifier( nAdapter, D3DENUM_WHQL_LEVEL, &devIndentifier );
-	return devIndentifier.VideoMemory;
+#elif defined (DX_TO_VK_ABSTRACTION)
+	return 1024*1024*1024;
 #else
 	// FIXME: This currently ignores the adapter
 	return ::GetVidMemBytes();
@@ -2423,30 +2422,6 @@ IDirect3DDevice9* CShaderDeviceDx8::InvokeCreateDevice( void* hWnd, int nAdapter
 
 	HRESULT hr = D3D()->CreateDevice( nAdapter, devType,
 		(VD3DHWND)hWnd, deviceCreationFlags, &m_PresentParameters, &pD3DDevice );
-
-
-	if (FAILED(hr) || !pD3DDevice)
-	{
-		if ( !IsPC() )
-			return NULL;
-
-		// try again, other applications may be taking their time
-		Sleep( 1000 );
-		hr = D3D()->CreateDevice( nAdapter, devType, (VD3DHWND)hWnd, deviceCreationFlags, &m_PresentParameters, &pD3DDevice );
-
-		if (FAILED(hr) || !pD3DDevice)
-		{
-			// in this case, we actually are allocating too much memory....
-			// This will cause us to use less buffers...
-			if ( m_PresentParameters.Windowed )
-			{
-				m_PresentParameters.SwapEffect = D3DSWAPEFFECT_COPY;
-				m_PresentParameters.BackBufferCount = 0;
-				hr = D3D()->CreateDevice( nAdapter, devType,
-					(VD3DHWND)hWnd, deviceCreationFlags, &m_PresentParameters, &pD3DDevice );
-			}
-		}
-	}
 
 	if ( !FAILED( hr ) && pD3DDevice )
 	{
@@ -3955,11 +3930,7 @@ void CShaderDeviceDx8::Present()
 		if ( IsPC() && ( m_IsResizing || ( m_ViewHWnd != (VD3DHWND)m_hWnd ) ) )
 		{
 			RECT destRect;
-#if !defined( DX_TO_GL_ABSTRACTION )
 			GetClientRect( ( HWND )m_ViewHWnd, &destRect );
-#else
-			toglGetClientRect( (VD3DHWND)m_ViewHWnd, &destRect );
-#endif
 
 			ShaderViewport_t viewport;
 			g_pShaderAPI->GetViewports( &viewport, 1 );

@@ -8,7 +8,7 @@ def configure(conf):
 	conf.define('SHADER_DLL_EXPORT', True)
 
 def build(bld):
-	libs = ['tier0', 'bitmap', 'tier1', 'tier2', 'interfaces', 'vstdlib', 'videocfg', 'mathlib', 'togl', 'shaderlib', 'vtf', 'bzip2']
+	libs = ['tier0', 'bitmap', 'tier1', 'tier2', 'interfaces', 'vstdlib', 'videocfg', 'mathlib', 'd3d9', 'd3dx', 'shaderlib', 'vtf', 'appframework', 'bzip2', 'SDL2']
 
 	includes = ['..']
 

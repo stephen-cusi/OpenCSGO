@@ -8,12 +8,9 @@
 #ifndef TIER0_MEM_H
 #define TIER0_MEM_H
 
-#ifdef _WIN32
 #pragma once
-#endif
 
 #include <stddef.h>
-
 
 #include "tier0/platform.h"
 
@@ -38,10 +35,6 @@
 //-----------------------------------------------------------------------------
 MEM_INTERFACE void *MemAllocScratch( int nMemSize );
 MEM_INTERFACE void MemFreeScratch();
-
-#if defined( POSIX )
-MEM_INTERFACE void ZeroMemory( void *mem, size_t length );
-#endif
 
 //Only works with USE_MEM_DEBUG and memory allocation call stack tracking enabled.
 MEM_INTERFACE int GetAllocationCallStack( void *mem, void **pCallStackOut, int iMaxEntriesOut );

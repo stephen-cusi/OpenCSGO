@@ -61,14 +61,7 @@ void *AllocateTempBuffer( size_t nSizeInBytes )
 
 void FailedLock( const char *pszMsg )
 {
-	if ( IsPC() )
-	{
-		Error( "%s", pszMsg );
-	}
-	else
-	{
-		Warning( "%s", pszMsg );
-	}
+	Warning( "%s", pszMsg );
 	g_pMemAlloc->OutOfMemory();
 }
 

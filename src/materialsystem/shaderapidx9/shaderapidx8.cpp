@@ -119,7 +119,7 @@ mat_fullbright 1 doesn't work properly on alpha materials in testroom_standards
 
 #include "winutils.h"
 
-#ifdef _WIN32
+#ifdef USE_ACTUAL_DX
 #include "nvapi.h"
 #include "NvApiDriverSettings.h"
 #endif
@@ -4384,9 +4384,6 @@ void CShaderAPIDx8::ResetRenderState( bool bFullReset )
 		SetSamplerState( i, D3DSAMP_MINFILTER, SamplerState(i).m_MinFilter );
 		SetSamplerState( i, D3DSAMP_MAGFILTER, SamplerState(i).m_MagFilter );
 		SetSamplerState( i, D3DSAMP_MIPFILTER, SamplerState(i).m_MipFilter );
-#if defined ( POSIX )
-		SetSamplerState( i, D3DSAMP_SHADOWFILTER, SamplerState(i).m_bShadowFilterEnable );
-#endif
 
 		SetSamplerState( i, D3DSAMP_BORDERCOLOR, RGB( 0,0,0 ) );
 	}
@@ -4505,11 +4502,7 @@ void CShaderAPIDx8::ResetRenderState( bool bFullReset )
 
 	// Viewport defaults to the window size
 	RECT windowRect;
-#if defined(_WIN32) && !defined( DX_TO_GL_ABSTRACTION )
 	GetClientRect( (HWND)m_hWnd, &windowRect );
-#else
-	toglGetClientRect( (VD3DHWND)m_hWnd, &windowRect );
-#endif
 
 	ShaderViewport_t viewport;
 	viewport.Init( windowRect.left, windowRect.top, 
@@ -14378,11 +14371,8 @@ void CShaderAPIDx8::SetViewports( int nCount, const ShaderViewport_t* pViewports
 		if ( IsPC() && m_IsResizing )
 		{
 			RECT viewRect;
-#if defined(_WIN32) && !defined( DX_TO_GL_ABSTRACTION )
 			GetClientRect( ( HWND )m_ViewHWnd, &viewRect );
-#else
-			toglGetClientRect( (VD3DHWND)m_ViewHWnd, &viewRect );
-#endif
+
 			m_nWindowWidth = viewRect.right - viewRect.left;
 			m_nWindowHeight = viewRect.bottom - viewRect.top;
 			nMaxWidth = MIN( m_nWindowWidth, nMaxWidth );

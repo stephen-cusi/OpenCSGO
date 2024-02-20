@@ -2772,18 +2772,7 @@ void ClientDLL_Init( void )
 				
 				bFailed = true;
 			}
-#ifdef CSTRIKE15
-			// CS:GO requires CSM support for fairness. (This is primarily here in case the user is hacking/copying their moddefaults.txt or dxsupport.cfg from another product).
-			else if ( !g_pMaterialSystemHardwareConfig->SupportsCascadedShadowMapping() )
-			{
-				wchar_t wcMessage[512];
-				g_pVGuiLocalize->ConstructString( wcMessage, sizeof( wcMessage ), g_pVGuiLocalize->Find( "#Valve_CardMustSupportCSM" ), 0 );
 
-				g_pVGuiLocalize->ConvertUnicodeToANSI( wcMessage, pMessage, sizeof( pMessage ) );
-
-				bFailed = true;
-			}
-#endif
 			// Allow the user to disable this check when testing internally (but not on steam public), typically when using remote desktop.
 			// FIXME: Don't ship this
 			//if ( ( GetSteamUniverse() != k_EUniversePublic ) && ( CommandLine()->CheckParm( "-nodevicechecks" ) ) )

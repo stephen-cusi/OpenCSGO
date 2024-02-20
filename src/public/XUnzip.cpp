@@ -127,9 +127,7 @@
 #endif
 #define INVALID_HANDLE_VALUE (void*)-1
 #define CloseHandle( arg ) close( size_cast< int >( (intp) arg ) )
-#if !defined(_PS3) && !defined(POSIX)
 #define ZeroMemory( ptr, size ) memset( ptr, 0, size )
-#endif
 #ifdef _PS3
 #define CreateDirectory( dir, ign ) (-1)
 #else

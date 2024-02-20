@@ -9,9 +9,7 @@
 #ifndef PLATFORM_H
 #define PLATFORM_H
 
-#if defined(__x86_64__) || defined(_WIN64)
-#define PLATFORM_64BITS 1
-#endif
+#pragma once
 
 #if defined( LINUX ) && ((__GNUC__ * 100) + __GNUC_MINOR__) >= 406
 // based on some Jonathan Wakely macros on the net...
@@ -71,10 +69,6 @@
 #define PLATFORM_PPC 1
 #endif
 
-
-#ifdef COMPILER_MSVC
-#pragma once
-#endif
 
 #if defined (_PS3)
 
@@ -1216,10 +1210,6 @@ PLATFORM_INTERFACE void Plat_MessageBox( const char *pTitle, const tchar *pMessa
 #define _wtoi(arg) wcstol(arg, NULL, 10)
 #define _wtoi64(arg) wcstoll(arg, NULL, 10)
 
-#ifndef _PS3
-typedef uintp HMODULE;
-#endif
-typedef void *HANDLE;
 #define __cdecl
 
 #if !defined( _snprintf )	// some vpc's define this on the command line
@@ -1232,6 +1222,7 @@ typedef void *HANDLE;
 #include <errno.h>
 #endif
 
+#include <windows.h>
 
 #endif // PLATFORM_POSIX
 

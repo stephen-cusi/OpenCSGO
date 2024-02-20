@@ -1254,6 +1254,10 @@ bool CGame::CreateGameWindow( void )
 		V_strcat( windowName, " - OpenGL", sizeof( windowName ) );
 	}
 
+	#if defined( DX_TO_VK_ABSTRACTION )
+		V_strcat( windowName, " - Vulkan", sizeof( windowName ) );
+	#endif
+
 #if PIX_ENABLE || defined( PIX_INSTRUMENTATION )
 	// PIX_ENABLE/PIX_INSTRUMENTATION is a big slowdown (that should never be checked in, but sometimes is by accident), so add this to the Window title too.
 	V_strcat( windowName, " - PIX_ENABLE", sizeof( windowName ) );
@@ -2519,11 +2523,7 @@ bool CGame::Shutdown( void )
 
 void *CGame::GetMainWindow( void )
 {
-#if defined( LINUX )
-	return 0;
-#else
 	return (void*)m_hWindow;
-#endif
 }
 
 #if defined(USE_SDL)

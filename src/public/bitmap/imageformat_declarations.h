@@ -3,6 +3,10 @@
 #ifndef IMAGEFORMAT_DECLARATIONS_HDR
 #define IMAGEFORMAT_DECLARATIONS_HDR
 
+#pragma once
+
+#include "togl/rendermechanism.h"
+
 
 enum NormalDecodeMode_t
 {
@@ -10,12 +14,6 @@ enum NormalDecodeMode_t
 	NORMAL_DECODE_ATI2N			= 1,
 	NORMAL_DECODE_ATI2N_ALPHA	= 2
 };
-
-// Forward declaration
-#ifdef _WIN32
-typedef enum _D3DFORMAT D3DFORMAT;
-typedef enum DXGI_FORMAT;
-#endif
 
 //-----------------------------------------------------------------------------
 // The various image format types

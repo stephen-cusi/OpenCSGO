@@ -254,8 +254,8 @@ public:
 protected:
 	CBaseFileSystem		*m_fs;
 
-#ifdef _PS3
-// FOURCCs generate a warning on PS3
+#if 1
+// FOURCCs generate a warning
 	enum
 	{
 		MAGIC = 0xABCDABCD,

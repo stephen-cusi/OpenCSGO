@@ -859,7 +859,7 @@ void D3DDeviceWrapper::ExecutePushBuffer( PushBuffer const* pb)
 			}
 			break;
 			
-#ifndef DX_TO_GL_ABSTRACTION
+#ifdef USE_ACTUAL_DX
 			case PBCMD_STRETCHRECT_NVAPI:
 			{
 				VPROF_BUFFER_PLAYBACK( "STRETCHRECTNVAPI" );

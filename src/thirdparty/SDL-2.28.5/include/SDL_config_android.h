@@ -150,7 +150,7 @@
 
 /* Enable various input drivers */
 #define SDL_JOYSTICK_ANDROID    1
-#define SDL_JOYSTICK_HIDAPI     1
+//#define SDL_JOYSTICK_HIDAPI     1
 #define SDL_JOYSTICK_VIRTUAL    1
 #define SDL_HAPTIC_ANDROID  1
 
@@ -170,23 +170,12 @@
 /* Enable various video drivers */
 #define SDL_VIDEO_DRIVER_ANDROID 1
 
-/* Enable OpenGL ES */
-//#define SDL_VIDEO_OPENGL_ES 1
-#define SDL_VIDEO_OPENGL_ES2 1
-#define SDL_VIDEO_OPENGL_EGL 1
-//#define SDL_VIDEO_RENDER_OGL_ES 1
-#define SDL_VIDEO_RENDER_OGL_ES2    1
-
 /* Enable Vulkan support */
 /* Android does not support Vulkan in native code using the "armeabi" ABI. */
-#if 0
 #if defined(__ARM_ARCH) && __ARM_ARCH < 7
 #define SDL_VIDEO_VULKAN 0
 #else
 #define SDL_VIDEO_VULKAN 1
-#endif
-#else
-#define SDL_VIDEO_VULKAN 0
 #endif
 
 /* Enable system power support */
